@@ -24,6 +24,10 @@ class Enqueue_Scripts{
 
         // Enqueue Scripts
         wp_enqueue_script( 'elementskit-elementor', \ElementsKit_Lite::widget_url() . 'init/assets/js/elementor.js', ['jquery', 'elementor-frontend', 'animate-circle'], \ElementsKit_Lite::version(), true );
+        wp_localize_script( 'elementskit-elementor', 'ekit_config', [
+            'ajaxurl'   => admin_url( 'admin-ajax.php' ),
+            'nonce'     => wp_create_nonce( 'ekit_pro' ),
+        ] );
 
         // added swiper js - elementor remove it when "Improved Asset Loading" is active
         if(defined('ELEMENTOR_ASSETS_URL')) {

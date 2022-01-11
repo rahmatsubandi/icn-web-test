@@ -4,7 +4,7 @@ Contributors: Ataurr, wpmet, emranio, easin55474, enamulhoquemohon
 Tags: elementor addons, mega menu builder, header footer builder, elementor widgets, Accordion tab, elementor modules, page builder addons, elementor addon, elementor widget, addons
 Requires at least: 5.0
 Tested up to: 5.8
-Stable tag: 2.5.1
+Stable tag: 2.5.2
 Requires PHP: 7.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -412,13 +412,20 @@ Do you want to integrate the Facebook Messenger chat-head to any of your web pag
 Start using the Facebook Messenger module chat-head by providing the Page ID, choosing any color, logged in user greeting, and logged out user greeting. You can also show your visitors a dialogue box if you wish to. However, make sure that your domain is whitelisted on the page you’re linking to.
 
 == Changelog ==
+Version: 2.5.2 (2022-01-09)
+Added: Nav menu widget dropdown open on click.
+Added: Ajax Loading support for Advanced Tab Widget.
+Fixed: Ask for rating notice logo not showing.
+Improved: Html tags associated with table.
+Tweak: CSS and JS improved.
+
 Version: 2.5.1 (2021-12-02)
 Fix: Megamenu Markup validation issue for Nav Menu Widget.
-Tweak: CSS and JS improved
+Tweak: CSS and JS improved.
 
 Version: 2.5.0 (2021-11-25)
 New: Links support for Testimonial Widget.
-Fix: Mobile menu visual issue (theme compatibility)
+Fix: Mobile menu visual issue (theme compatibility).
 Fix: Price Tag hides without duration text for Pricing Widget.
 Fix: Minor Spelling for Widget Builder Module.
 Fix: Overlay responsive issue in the Editor for Nav Menu Widget.

@@ -103,7 +103,7 @@ class Plugin{
              */
             \Wpmet\Libs\Rating::instance('elementskit-lite')
             ->set_plugin('ElementsKit', 'https://wpmet.com/wordpress.org/rating/elementskit')
-            ->set_plugin_logo('https://ps.w.org/elementskit-lite/assets/icon-128x128.png','width:150px !important')
+            ->set_plugin_logo('https://ps.w.org/elementskit-lite/assets/icon-128x128.gif','width:150px !important')
             ->set_allowed_screens('edit-elementskit_template')
             ->set_allowed_screens('toplevel_page_elementskit')
             ->set_allowed_screens('elementskit_page_elementskit-lite_get_help')

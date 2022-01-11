@@ -7,6 +7,24 @@ class Widget_Area_Utils{
 
 	function init(){
 		add_action('elementor/editor/after_enqueue_styles', array( $this, 'modal_content' ) );
+
+		add_action( 'wp_ajax_ekit_widgetarea_content', [ $this, 'ekit_widgetarea_content' ] );
+		add_action( 'wp_ajax_nopriv_ekit_widgetarea_content', [ $this, 'ekit_widgetarea_content' ] );
+	}
+
+	public function ekit_widgetarea_content() {
+		if ( !wp_verify_nonce($_POST['nonce'], 'ekit_pro') ) wp_die();
+
+		$post_id = intval( $_POST[ 'post_id' ] );
+		
+		if ( isset( $post_id ) ) {
+			$elementor = \Elementor\Plugin::instance();
+			echo str_replace( '#elementor', '', \ElementsKit_Lite\Utils::render_tab_content( $elementor->frontend->get_builder_content_for_display( $post_id ), $post_id ) );
+		} else {
+			echo esc_html__( 'Click here to add content.', 'elementskit-lite' );
+		}
+		
+		wp_die();
 	}
 
 	public function modal_content() { 
@@ -21,7 +39,7 @@ class Widget_Area_Utils{
 			echo \ElementsKit_Lite\Utils::render($output);
 	}
 
-	public static function parse($content, $widget_key, $index = 1){
+	public static function parse($content, $widget_key, $index = 1, $isAjax = ''){
 		$key = ($content == '') ? $widget_key : $content;
 		$extract_key = explode('***', $key);
 		$extract_key = $extract_key[0];
@@ -33,19 +51,28 @@ class Widget_Area_Utils{
 				<span class="elementor-screen-only"><?php esc_html_e('Edit', 'elementskit-lite'); ?></span>
 			</div>
 
-			<div class="elementor-widget-container">
-				<?php
+			<?php
  				$builder_post_title = 'dynamic-content-widget-' . $extract_key . '-' . $index;
 				$builder_post = get_page_by_title($builder_post_title, OBJECT, 'elementskit_content');
 				$elementor = \Elementor\Plugin::instance();
 
-				if(isset($builder_post->ID)){
-					echo str_replace('#elementor', '', \ElementsKit_Lite\Utils::render_tab_content($elementor->frontend->get_builder_content_for_display( $builder_post->ID ), $builder_post->ID)); 
-				}else{
-					echo esc_html__('Click here to add content.', 'elementskit-lite');
+				if ( $isAjax === 'yes' ) {
+					$post_id = isset( $builder_post->ID ) ? $builder_post->ID : '';
+					echo '<div class="elementor-widget-container" data-ajax-post-id="'. $post_id .'"></div>';
+				} else {
+				?>
+					<div class="elementor-widget-container">
+						<?php
+							if ( isset( $builder_post->ID ) ) {
+								echo str_replace('#elementor', '', \ElementsKit_Lite\Utils::render_tab_content($elementor->frontend->get_builder_content_for_display( $builder_post->ID ), $builder_post->ID)); 
+							} else {
+								echo esc_html__('Click here to add content.', 'elementskit-lite');
+							}
+						?>
+					</div>
+				<?php
 				}
- 				?>
-			</div>
+			?>
 		</div>
 		<?php
 		$output = ob_get_contents();
